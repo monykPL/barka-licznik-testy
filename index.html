@@ -20,43 +20,56 @@
         <button class="nav-btn" onclick="switchTab('settings-view')">Ustawienia</button>
     </nav>
 
-    <!-- LASERY I DYM (EFEKTY VISUAL) -->
+    <!-- LASERY NEONOWE -->
     <div id="lasers-container" class="hidden">
-        <div class="laser laser-1"></div>
-        <div class="laser laser-2"></div>
-        <div class="laser laser-3"></div>
+        <div class="laser laser-red"></div>
+        <div class="laser laser-cyan"></div>
+        <div class="laser laser-lime"></div>
+        <div class="laser laser-yellow"></div>
     </div>
+
+    <!-- REALISTYCZNY DYM -->
     <div id="smoke-container" class="hidden">
-        <div class="smoke smoke-left"></div>
-        <div class="smoke smoke-right"></div>
+        <div class="smoke-plume smoke-left-1"></div>
+        <div class="smoke-plume smoke-left-2"></div>
+        <div class="smoke-plume smoke-right-1"></div>
+        <div class="smoke-plume smoke-right-2"></div>
     </div>
 
     <audio id="barka-audio" src="barka.mp3"></audio>
 
-    <div class="container">
+    <!-- WIDOK 1: STRONA GŁÓWNA (KLASYCZNY UKŁAD ZE ZDJĘCIA) -->
+    <main id="main-view" class="view-section active">
         
-        <!-- WIDOK 1: STRONA GŁÓWNA -->
-        <main id="main-view" class="view-section active">
-            <h1 id="title-section">Do Barki 21:37 pozostało:</h1>
+        <!-- PRAWY GÓRNY RÓG: TEST DŹWIĘKU -->
+        <div id="sound-section" class="top-right-controls">
+            <button id="sound-btn" onclick="checkSound()">KLIKNIJ, ABY SPRAWDZIĆ DŹWIĘK</button>
+            <span class="sound-subtext">(Musisz usłyszeć 3 sekundy Barki)</span>
+        </div>
+
+        <!-- ŚRODEK EKRANU: ZEGAR -->
+        <div id="center-timer-box" class="center-box">
+            <div id="title-section" class="timer-title">Do godziny 21:37 pozostało:</div>
             <div id="timer" class="timer-display">00:00:00</div>
+            <div class="timer-author">made by: monykPL</div>
+        </div>
 
-            <div class="controls-box">
-                <button id="party-btn" onclick="toggleParty()">IMPREZA: WYŁĄCZONA</button>
-                <button id="sound-btn" onclick="checkSound()">Test dźwięku</button>
-            </div>
-
-            <div id="chat-section" class="chat-container">
-                <div id="chat-box" class="chat-messages"></div>
-                <div class="chat-inputs">
-                    <input type="text" id="user-nick" placeholder="Nick" maxlength="15">
-                    <input type="text" id="tekst" placeholder="Napisz wiadomość...">
-                    <button onclick="sendMsg()">Wyślij</button>
+        <!-- LEWY DOLNY RÓG: CZAT -->
+        <div id="chat-section" class="chat-bottom-left">
+            <div id="chat-box" class="chat-messages"></div>
+            <div class="chat-inputs-column">
+                <input type="text" id="user-nick" placeholder="Twój Nick..." maxlength="15">
+                <div class="chat-bottom-row">
+                    <input type="text" id="tekst" placeholder="Wiadomość...">
+                    <button class="send-btn" onclick="sendMsg()">Wyślij</button>
                 </div>
             </div>
-        </main>
+        </div>
+    </main>
 
-        <!-- WIDOK 2: ZABAWY (CLICKER) -->
-        <section id="games-view" class="view-section">
+    <!-- WIDOK 2: ZABAWY (CLICKER) -->
+    <section id="games-view" class="view-section">
+        <div class="content-card">
             <h2>Barka Clicker</h2>
             <div class="clicker-box">
                 <div id="click-count">Punkty: 0</div>
@@ -66,10 +79,12 @@
                 <h3>Ulepszenia</h3>
                 <p class="coming-soon">Wkrótce</p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- WIDOK 3: USTAWIENIA -->
-        <section id="settings-view" class="view-section">
+    <!-- WIDOK 3: USTAWIENIA -->
+    <section id="settings-view" class="view-section">
+        <div class="content-card">
             <div class="settings-tabs">
                 <button class="set-tab-btn active" onclick="switchSettingsTab('set-visual')">Visual</button>
                 <button class="set-tab-btn" onclick="switchSettingsTab('set-info')">Informacje</button>
@@ -79,22 +94,39 @@
             <!-- Zakładka: Visual -->
             <div id="set-visual" class="settings-content active">
                 <h3>Ustawienia Wizualne</h3>
-                <label><input type="checkbox" id="toggle-chat" checked onchange="updateVisuals()"> Czat</label><br>
-                <label><input type="checkbox" id="toggle-clock" checked onchange="updateVisuals()"> Zegar / Odliczanie</label><br>
-                <label><input type="checkbox" id="toggle-sound" checked onchange="updateVisuals()"> Test dźwięku</label><br>
-                <label><input type="checkbox" id="toggle-confetti" checked onchange="updateVisuals()"> Konfetti</label><br>
-                <label><input type="checkbox" id="toggle-strobe" checked onchange="updateVisuals()"> Miganie (Ostrzeżenie o epilepsji pozostaje)</label><br>
+                <div class="party-setting-row">
+                    <button id="party-btn-visual" class="party-toggle-btn" onclick="toggleParty()">
+                        IMPREZA (STROBE): WYŁĄCZONA
+                    </button>
+                    <small>OSTRZEŻENIE: Tryb imprezy może wywołać napad epilepsji.</small>
+                </div>
                 <hr>
-                <label><input type="checkbox" id="toggle-lasers" onchange="updateVisuals()"> Lasery imprezowe</label><br>
-                <label><input type="checkbox" id="toggle-smoke" onchange="updateVisuals()"> Dym ze stron ekranu</label>
+                <label><input type="checkbox" id="toggle-chat" checked onchange="updateVisuals()"> Pokaż Czat</label><br>
+                <label><input type="checkbox" id="toggle-clock" checked onchange="updateVisuals()"> Pokaż Zegar i Odliczanie</label><br>
+                <label><input type="checkbox" id="toggle-sound" checked onchange="updateVisuals()"> Pokaż Przycisk testu dźwięku</label><br>
+                <label><input type="checkbox" id="toggle-confetti" checked onchange="updateVisuals()"> Konfetti o 21:37</label><br>
+                <label><input type="checkbox" id="toggle-strobe" checked onchange="updateVisuals()"> Zezwalaj na miganie ekranu</label><br>
+                <hr>
+                <label><input type="checkbox" id="toggle-lasers" onchange="updateVisuals()"> NEONOWE Lasery imprezowe</label><br>
+                <label><input type="checkbox" id="toggle-smoke" onchange="updateVisuals()"> Realistyczny dym po bokach</label>
             </div>
 
             <!-- Zakładka: Informacje -->
             <div id="set-info" class="settings-content">
                 <h3>Informacje</h3>
                 <div class="social-buttons">
-                    <a href="https://github.com/monykPL/barka-licznik" target="_blank" class="info-btn github">GitHub</a>
-                    <a href="https://www.youtube.com/@monyk_PL" target="_blank" class="info-btn youtube">YouTube</a>
+                    <a href="https://github.com/monykPL/barka-licznik" target="_blank" class="info-btn github">
+                        <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                        GitHub
+                    </a>
+                    <a href="https://www.youtube.com/@monyk_PL" target="_blank" class="info-btn youtube">
+                        <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                        YouTube
+                    </a>
                 </div>
                 <p class="disclaimer">To jest w celach humorystycznych, to nie ma być traktowane realnie.</p>
             </div>
@@ -108,9 +140,8 @@
                     <li><b>Nie spamić</b> — wysłanie 4 wiadomości w ciągu 2 sekund skutkuje <b>blokadą pisania na 5 minut</b>.</li>
                 </ol>
             </div>
-        </section>
-
-    </div>
+        </div>
+    </section>
 
     <script src="script.js"></script>
 </body>
