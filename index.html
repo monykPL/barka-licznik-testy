@@ -1,1 +1,117 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barka 21:37</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Firebase SDK (v8) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
 
+    <!-- GÓRNY PASEK NAWIGACJI -->
+    <nav class="top-nav">
+        <button class="nav-btn active" onclick="switchTab('main-view')">Strona główna</button>
+        <button class="nav-btn" onclick="switchTab('games-view')">Zabawy</button>
+        <button class="nav-btn" onclick="switchTab('settings-view')">Ustawienia</button>
+    </nav>
+
+    <!-- LASERY I DYM (EFEKTY VISUAL) -->
+    <div id="lasers-container" class="hidden">
+        <div class="laser laser-1"></div>
+        <div class="laser laser-2"></div>
+        <div class="laser laser-3"></div>
+    </div>
+    <div id="smoke-container" class="hidden">
+        <div class="smoke smoke-left"></div>
+        <div class="smoke smoke-right"></div>
+    </div>
+
+    <audio id="barka-audio" src="barka.mp3"></audio>
+
+    <div class="container">
+        
+        <!-- WIDOK 1: STRONA GŁÓWNA -->
+        <main id="main-view" class="view-section active">
+            <h1 id="title-section">Do Barki 21:37 pozostało:</h1>
+            <div id="timer" class="timer-display">00:00:00</div>
+
+            <div class="controls-box">
+                <button id="party-btn" onclick="toggleParty()">IMPREZA: WYŁĄCZONA</button>
+                <button id="sound-btn" onclick="checkSound()">Test dźwięku</button>
+            </div>
+
+            <div id="chat-section" class="chat-container">
+                <div id="chat-box" class="chat-messages"></div>
+                <div class="chat-inputs">
+                    <input type="text" id="user-nick" placeholder="Nick" maxlength="15">
+                    <input type="text" id="tekst" placeholder="Napisz wiadomość...">
+                    <button onclick="sendMsg()">Wyślij</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- WIDOK 2: ZABAWY (CLICKER) -->
+        <section id="games-view" class="view-section">
+            <h2>Barka Clicker</h2>
+            <div class="clicker-box">
+                <div id="click-count">Punkty: 0</div>
+                <button id="clicker-btn" onclick="clickCookie()">KLIKAJ!</button>
+            </div>
+            <div class="upgrades-box">
+                <h3>Ulepszenia</h3>
+                <p class="coming-soon">Wkrótce</p>
+            </div>
+        </section>
+
+        <!-- WIDOK 3: USTAWIENIA -->
+        <section id="settings-view" class="view-section">
+            <div class="settings-tabs">
+                <button class="set-tab-btn active" onclick="switchSettingsTab('set-visual')">Visual</button>
+                <button class="set-tab-btn" onclick="switchSettingsTab('set-info')">Informacje</button>
+                <button class="set-tab-btn" onclick="switchSettingsTab('set-rules')">Regulamin</button>
+            </div>
+
+            <!-- Zakładka: Visual -->
+            <div id="set-visual" class="settings-content active">
+                <h3>Ustawienia Wizualne</h3>
+                <label><input type="checkbox" id="toggle-chat" checked onchange="updateVisuals()"> Czat</label><br>
+                <label><input type="checkbox" id="toggle-clock" checked onchange="updateVisuals()"> Zegar / Odliczanie</label><br>
+                <label><input type="checkbox" id="toggle-sound" checked onchange="updateVisuals()"> Test dźwięku</label><br>
+                <label><input type="checkbox" id="toggle-confetti" checked onchange="updateVisuals()"> Konfetti</label><br>
+                <label><input type="checkbox" id="toggle-strobe" checked onchange="updateVisuals()"> Miganie (Ostrzeżenie o epilepsji pozostaje)</label><br>
+                <hr>
+                <label><input type="checkbox" id="toggle-lasers" onchange="updateVisuals()"> Lasery imprezowe</label><br>
+                <label><input type="checkbox" id="toggle-smoke" onchange="updateVisuals()"> Dym ze stron ekranu</label>
+            </div>
+
+            <!-- Zakładka: Informacje -->
+            <div id="set-info" class="settings-content">
+                <h3>Informacje</h3>
+                <div class="social-buttons">
+                    <a href="https://github.com/monykPL/barka-licznik" target="_blank" class="info-btn github">GitHub</a>
+                    <a href="https://www.youtube.com/@monyk_PL" target="_blank" class="info-btn youtube">YouTube</a>
+                </div>
+                <p class="disclaimer">To jest w celach humorystycznych, to nie ma być traktowane realnie.</p>
+            </div>
+
+            <!-- Zakładka: Regulamin -->
+            <div id="set-rules" class="settings-content">
+                <h3>Regulamin Korzystania</h3>
+                <ol>
+                    <li><b>Nie wysyłać linków</b> — wysłanie jakiegokolwiek linku skutkuje automatycznym usunięciem wiadomości oraz <b>karą braku pisania na 10 minut</b>.</li>
+                    <li><b>Nie obrażać / nie wyzywać</b> innych użytkowników na czacie.</li>
+                    <li><b>Nie spamić</b> — wysłanie 4 wiadomości w ciągu 2 sekund skutkuje <b>blokadą pisania na 5 minut</b>.</li>
+                </ol>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
