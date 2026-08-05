@@ -56,15 +56,14 @@ function updateVisuals() {
     const showSmoke = document.getElementById("toggle-smoke").checked;
 
     document.getElementById("chat-section").style.display = showChat ? "block" : "none";
-    document.getElementById("title-section").style.display = showClock ? "block" : "none";
-    document.getElementById("timer").style.display = showClock ? "block" : "none";
-    document.getElementById("sound-btn").style.display = showSound ? "inline-block" : "none";
+    document.getElementById("center-timer-box").style.display = showClock ? "block" : "none";
+    document.getElementById("sound-section").style.display = showSound ? "flex" : "none";
 
     document.getElementById("lasers-container").classList.toggle("hidden", !showLasers);
     document.getElementById("smoke-container").classList.toggle("hidden", !showSmoke);
 }
 
-// --- EFEKTY IMPREZY ---
+// --- EFEKTY IMPREZY (STROBE / KONFETTI) ---
 function updateStrobe() {
     clearInterval(strobeInterval);
     const overlay = document.getElementById('party-overlay');
@@ -130,12 +129,15 @@ db.ref("lastTrigger").on("value", (snapshot) => {
     }
 });
 
+// Przycisk "Imprezy" przeniesiony do zakładki Ustawienia -> Visual
 window.toggleParty = function() {
     alert("OSTRZEŻENIE: Tryb imprezy może wywołać napad epilepsji.");
     isPartyMode = !isPartyMode;
-    const btn = document.getElementById("party-btn");
-    btn.innerText = `IMPREZA: ${isPartyMode ? "WŁĄCZONA" : "WYŁĄCZONA"}`;
-    btn.style.backgroundColor = isPartyMode ? "#2ecc71" : "#495057";
+    const btn = document.getElementById("party-btn-visual");
+    if (btn) {
+        btn.innerText = `IMPREZA (STROBE): ${isPartyMode ? "WŁĄCZONA" : "WYŁĄCZONA"}`;
+        btn.style.backgroundColor = isPartyMode ? "#2ecc71" : "#495057";
+    }
     updateStrobe();
 };
 
@@ -146,11 +148,10 @@ window.checkSound = function() {
     setTimeout(() => audio.pause(), 3000);
 };
 
-// --- CZAT I MODERACJA ---
+// --- CZAT I MODERACJA (ANTYSPAM / BLOCKER LINKÓW) ---
 window.sendMsg = function() {
     const now = Date.now();
 
-    // Sprawdzenie mutes
     if (now < userMutedUntil) {
         const minsLeft = Math.ceil((userMutedUntil - now) / 60000);
         alert(`Jesteś wyciszony jeszcze przez ${minsLeft} min!`);
@@ -161,7 +162,7 @@ window.sendMsg = function() {
     const tekst = tekstInput.value.trim();
     if (!tekst) return;
 
-    // Reguła 1: Wykrywanie Linków (Banning 10 min)
+    // Zakaz wysyłania linków -> wyciszenie 10 min
     const urlPattern = /(https?:\/\/|www\.|[a-zA-Z0-9-]+\.[a-zA-Z]{2,})/i;
     if (urlPattern.test(tekst)) {
         userMutedUntil = now + (10 * 60 * 1000);
@@ -171,18 +172,17 @@ window.sendMsg = function() {
         return;
     }
 
-    // Reguła 3: Antyspam (4 wiadomości w 2 sekundy = Ban 5 min)
+    // Antyspam: 4 wiadomości / 2s -> wyciszenie 5 min
     messageTimestamps = messageTimestamps.filter(t => now - t <= 2000);
     messageTimestamps.push(now);
     if (messageTimestamps.length >= 4) {
         userMutedUntil = now + (5 * 60 * 1000);
         localStorage.setItem('userMutedUntil', userMutedUntil);
-        alert("Wykryto spam (4 wiadomości / 2s)! Zostałeś wyciszony na 5 minut.");
+        alert("Wykryto spam (4 wiadomości w 2s)! Zostałeś wyciszony na 5 minut.");
         tekstInput.value = "";
         return;
     }
 
-    // Obsługa komend i normalnych wiadomości
     if (tekst === "/test") {
         db.ref("lastTrigger").set(Date.now());
         db.ref("wiadomosci").push({
