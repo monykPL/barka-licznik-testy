@@ -8,13 +8,13 @@ let messageTimestamps = [];
 let clickCount = 0;
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDgn4ux6ZJyFbxbG-aB-kv9GjNqfPJUiSw",
-    authDomain: "monyk-czat.firebaseapp.com",
-    databaseURL: "https://monyk-czat-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "monyk-czat",
-    storageBucket: "monyk-czat.firebasestorage.app",
-    messagingSenderId: "39641097299",
-    appId: "1:39641097299:web:aac07712b25e2b501652a6"
+    apiKey: "AIzaSyDv_r8UXUclGECi0Kv5iuYHDhVZNfLaZkA",
+    authDomain: "barka-licznik.firebaseapp.com",
+    databaseURL: "https://barka-licznik-default-rtdb.firebaseio.com",
+    projectId: "barka-licznik",
+    storageBucket: "barka-licznik.firebasestorage.app",
+    messagingSenderId: "160517652127",
+    appId: "1:160517652127:web:f1c6966ea11a366683ecaa"
 };
 
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
@@ -42,9 +42,19 @@ function switchSettingsTab(setTabId) {
 function updateVisuals() {
     document.getElementById("chat-section").style.display = document.getElementById("toggle-chat").checked ? "block" : "none";
     document.getElementById("center-timer-box").style.display = document.getElementById("toggle-clock").checked ? "block" : "none";
-    document.getElementById("sound-section").style.display = document.getElementById("toggle-sound").checked ? "flex" : "none";
     document.getElementById("lasers-container").classList.toggle("hidden", !document.getElementById("toggle-lasers").checked);
     document.getElementById("smoke-container").classList.toggle("hidden", !document.getElementById("toggle-smoke").checked);
+}
+
+function togglePartyCheckbox() {
+    const isChecked = document.getElementById("toggle-strobe").checked;
+    if (isChecked) {
+        alert("OSTRZEŻENIE: Tryb imprezy może wywołać napad epilepsji.");
+        isPartyMode = true;
+    } else {
+        isPartyMode = false;
+    }
+    updateStrobe();
 }
 
 function updateStrobe() {
@@ -53,7 +63,7 @@ function updateStrobe() {
         document.body.style.backgroundColor = "#30343f";
         return;
     }
-    if (isPartyMode && document.getElementById("toggle-strobe").checked) {
+    if (isPartyMode) {
         let flash = false;
         strobeInterval = setInterval(() => {
             document.body.style.backgroundColor = flash ? "#ffffff" : "#f1c40f";
@@ -116,16 +126,6 @@ document.addEventListener('click', () => {
     }
 });
 document.addEventListener('keydown', () => document.body.click());
-
-window.toggleParty = function() {
-    isPartyMode = !isPartyMode;
-    const btn = document.getElementById("party-btn-visual");
-    if (btn) {
-        btn.innerText = `IMPREZA (STROBE): ${isPartyMode ? "WŁĄCZONA" : "WYŁĄCZONA"}`;
-        btn.style.backgroundColor = isPartyMode ? "#2ecc71" : "#444";
-    }
-    updateStrobe();
-};
 
 window.checkSound = function() {
     const audio = document.getElementById('barka-audio');
