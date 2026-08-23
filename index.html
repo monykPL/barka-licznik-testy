@@ -1,147 +1,81 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barka 21:37</title>
+    <title>WyspaMonyka</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <!-- Firebase SDK (v8) -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-    <!-- Canvas Confetti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
-    <!-- GÓRNY PASEK NAWIGACJI -->
-    <nav class="top-nav">
-        <button class="nav-btn active" onclick="switchTab('main-view')">Strona główna</button>
-        <button class="nav-btn" onclick="switchTab('games-view')">Zabawy</button>
-        <button class="nav-btn" onclick="switchTab('settings-view')">Ustawienia</button>
+    <nav class="navbar">
+        <a href="#" class="logo" id="dynamicLogo">WyspaMonyka</a>
+        
+        <div class="nav-links">
+            <a href="#">Strona Główna</a>
+            <a href="#informacje">Informacje</a>
+            <a href="#dziela">Dzieła</a>
+        </div>
+
+        <button class="theme-toggle" id="themeToggle" aria-label="Przełącz tryb">
+            <span class="icon-sun">☀️</span>
+            <span class="icon-moon">🌙</span>
+        </button>
     </nav>
 
-    <!-- LASERY NEONOWE -->
-    <div id="lasers-container" class="hidden">
-        <div class="laser laser-red"></div>
-        <div class="laser laser-cyan"></div>
-        <div class="laser laser-lime"></div>
-        <div class="laser laser-yellow"></div>
-    </div>
-
-    <!-- REALISTYCZNY DYM -->
-    <div id="smoke-container" class="hidden">
-        <div class="smoke-plume smoke-left-1"></div>
-        <div class="smoke-plume smoke-left-2"></div>
-        <div class="smoke-plume smoke-right-1"></div>
-        <div class="smoke-plume smoke-right-2"></div>
-    </div>
-
-    <audio id="barka-audio" src="barka.mp3"></audio>
-
-    <!-- WIDOK 1: STRONA GŁÓWNA (KLASYCZNY UKŁAD ZE ZDJĘCIA) -->
-    <main id="main-view" class="view-section active">
-        
-        <!-- PRAWY GÓRNY RÓG: TEST DŹWIĘKU -->
-        <div id="sound-section" class="top-right-controls">
-            <button id="sound-btn" onclick="checkSound()">KLIKNIJ, ABY SPRAWDZIĆ DŹWIĘK</button>
-            <span class="sound-subtext">(Musisz usłyszeć 3 sekundy Barki)</span>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>WyspaMonyka</h1>
+            <p>witaj, na mojej stronie internetowej</p>
         </div>
+    </header>
 
-        <!-- ŚRODEK EKRANU: ZEGAR -->
-        <div id="center-timer-box" class="center-box">
-            <div id="title-section" class="timer-title">Do godziny 21:37 pozostało:</div>
-            <div id="timer" class="timer-display">00:00:00</div>
-            <div class="timer-author">made by: monykPL</div>
+    <section class="social-bar">
+        <div class="container flex-socials">
+            <a href="https://www.tiktok.com/@monyk_pl" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i> Tiktok: <span>monyk_pl</span></a>
+            <a href="https://www.youtube.com/@monyk_PL" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> Youtube: <span>monyk_PL</span></a>
+            <a href="https://github.com/monykPL" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Github: <span>monykPL</span></a>
+            <a href="#" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i> Discord: <span>monykpl</span></a>
         </div>
+    </section>
 
-        <!-- LEWY DOLNY RÓG: CZAT -->
-        <div id="chat-section" class="chat-bottom-left">
-            <div id="chat-box" class="chat-messages"></div>
-            <div class="chat-inputs-column">
-                <input type="text" id="user-nick" placeholder="Twój Nick..." maxlength="15">
-                <div class="chat-bottom-row">
-                    <input type="text" id="tekst" placeholder="Wiadomość...">
-                    <button class="send-btn" onclick="sendMsg()">Wyślij</button>
+    <main class="container">
+        <section id="informacje" class="card-section">
+            <h2>Historia</h2>
+            <p class="story-text">
+                Witam jestem monykPL mam 21lat nie śmiało publikuje swój głos i twarz na sociale może to się potem zmieni, moje hobby od dzieciaka było robić swoje gry na kartridże lub na dyskietki ale po kilku latach już wycofało się to i były płyty, strony, sklepy itp. ale marzenie dalej te same na youtube oglądałem dużo youtuberów i moje drugie marzenie jakby tamte nie udało się to zostać popularnym youtuberem i właśnie po kilku latach w 2019 wstawiłem swój pierwszy filmik który teraz jest prywatny i tamte konto usunięte bo zawierało moje imię w nazwie ale potem odkryłem że to zło i nie mogę tak robić bo ludzie będą znać moich rodziców kuzynów i tym podobne (itp.) miałem przerwę od tych sociali ale po długim trochę czasie powróciłem na youtube wstawiając mój pierwszy filmik na drugim kanale który powstał 4 czerwca 2023 roku jak dostałem po kliku dniach tysiąc wyświetleń pod nim bardzo byłem ucieszony bo nigdy takiej liczby nie widziałem za ten widziałem na youtube/tiktok ludzie robiące gameplay i nawet grałem w te gry porzuciłem nagrywanie przez to poszedłem na robienie gier/programowanie z początku robiłem w roblox na LUA uczyłem się poradników z youtube zbytnio nie umiałem po kilku nie udanych problemach udało się pierwszy kod trenowałem dalej i umiem do tej pory ale nie robię już na rolox gier przez ten surowy regulamin na temat publikowania więc przeniosłem się na jakieś inne silniki typu JavaScript, C#, CSS, HTML itp.
+            </p>
+        </section>
+
+        <section id="dziela" class="card-section">
+            <h2>Dzieła</h2>
+            
+            <article class="project-card">
+                <div class="project-header">
+                    <h3>1. <a href="https://monykpl.github.io/barka-licznik/" target="_blank" class="project-link">Licznik Papieskiej</a></h3>
+                    <span class="badge" id="papalBadge">21:37 Auto-Trigger</span>
                 </div>
-            </div>
-        </div>
+                <p>
+                    Strona gdzie jest licznik do godziny 21:37 z czatem i trybem imprezowym gdzie czat się resetuje co godzinę a impreza podczas barki robi migające światło więc osoby z epilepsją nie odpalać tego oraz jak wybije ta godzina 21:37 tło zmienia się z szarego na żółte i leci konfetti po bokach ekranu a w tle leci barka remix wykop pl po tej piosence tło zmienia na szare z powrotem i znika konfetti robi następnego dnia jak wybije 21:37 to samo.
+                </p>
+            </article>
+
+            <article class="project-card">
+                <div class="project-header">
+                    <h3>2. <a href="https://monykpl.github.io/MelonClient/" target="_blank" class="project-link">MelonClient</a></h3>
+                    <span class="badge beta">BETA</span>
+                </div>
+                <p>
+                    Strona mojego własnego clienta minecraft MelonClient jest w fazie Beta ale da się korzystać z niego staram się go optymalizować najmocniej jak mogę żeby był najlepszym darmowym clientem pod FPS próbuje wyścignąć innych ale nie wiem czy mi się uda jeśli chcecie mnie wesprzeć możecie wejść na serwer discord który znajdzecie w zakładce "Social Media".
+                </p>
+                <div class="btn-group">
+                    <a href="https://monykpl.github.io/MelonClient/" target="_blank" class="btn btn-primary"><i class="fa-brands fa-windows"></i> Windows</a>
+                    <a href="https://monykpl.github.io/MelonClient/" target="_blank" class="btn btn-secondary"><i class="fa-brands fa-linux"></i> Linux</a>
+                </div>
+            </article>
+        </section>
     </main>
-
-    <!-- WIDOK 2: ZABAWY (CLICKER) -->
-    <section id="games-view" class="view-section">
-        <div class="content-card">
-            <h2>Barka Clicker</h2>
-            <div class="clicker-box">
-                <div id="click-count">Punkty: 0</div>
-                <button id="clicker-btn" onclick="clickCookie()">KLIKAJ!</button>
-            </div>
-            <div class="upgrades-box">
-                <h3>Ulepszenia</h3>
-                <p class="coming-soon">Wkrótce</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- WIDOK 3: USTAWIENIA -->
-    <section id="settings-view" class="view-section">
-        <div class="content-card">
-            <div class="settings-tabs">
-                <button class="set-tab-btn active" onclick="switchSettingsTab('set-visual')">Visual</button>
-                <button class="set-tab-btn" onclick="switchSettingsTab('set-info')">Informacje</button>
-                <button class="set-tab-btn" onclick="switchSettingsTab('set-rules')">Regulamin</button>
-            </div>
-
-            <!-- Zakładka: Visual -->
-            <div id="set-visual" class="settings-content active">
-                <h3>Ustawienia Wizualne</h3>
-                <div class="party-setting-row">
-                    <button id="party-btn-visual" class="party-toggle-btn" onclick="toggleParty()">
-                        IMPREZA (STROBE): WYŁĄCZONA
-                    </button>
-                    <small>OSTRZEŻENIE: Tryb imprezy może wywołać napad epilepsji.</small>
-                </div>
-                <hr>
-                <label><input type="checkbox" id="toggle-chat" checked onchange="updateVisuals()"> Pokaż Czat</label><br>
-                <label><input type="checkbox" id="toggle-clock" checked onchange="updateVisuals()"> Pokaż Zegar i Odliczanie</label><br>
-                <label><input type="checkbox" id="toggle-sound" checked onchange="updateVisuals()"> Pokaż Przycisk testu dźwięku</label><br>
-                <label><input type="checkbox" id="toggle-confetti" checked onchange="updateVisuals()"> Konfetti o 21:37</label><br>
-                <label><input type="checkbox" id="toggle-strobe" checked onchange="updateVisuals()"> Zezwalaj na miganie ekranu</label><br>
-                <hr>
-                <label><input type="checkbox" id="toggle-lasers" onchange="updateVisuals()"> NEONOWE Lasery imprezowe</label><br>
-                <label><input type="checkbox" id="toggle-smoke" onchange="updateVisuals()"> Realistyczny dym po bokach</label>
-            </div>
-
-            <!-- Zakładka: Informacje -->
-            <div id="set-info" class="settings-content">
-                <h3>Informacje</h3>
-                <div class="social-buttons">
-                    <a href="https://github.com/monykPL/barka-licznik" target="_blank" class="info-btn github">
-                        <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-                        </svg>
-                        GitHub
-                    </a>
-                    <a href="https://www.youtube.com/@monyk_PL" target="_blank" class="info-btn youtube">
-                        <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                        </svg>
-                        YouTube
-                    </a>
-                </div>
-                <p class="disclaimer">To jest w celach humorystycznych, to nie ma być traktowane realnie.</p>
-            </div>
-
-            <!-- Zakładka: Regulamin -->
-            <div id="set-rules" class="settings-content">
-                <h3>Regulamin Korzystania</h3>
-                <ol>
-                    <li><b>Nie wysyłać linków</b> — wysłanie jakiegokolwiek linku skutkuje automatycznym usunięciem wiadomości oraz <b>karą braku pisania na 10 minut</b>.</li>
-                    <li><b>Nie obrażać / nie wyzywać</b> innych użytkowników na czacie.</li>
-                    <li><b>Nie spamić</b> — wysłanie 4 wiadomości w ciągu 2 sekund skutkuje <b>blokadą pisania na 5 minut</b>.</li>
-                </ol>
-            </div>
-        </div>
-    </section>
 
     <script src="script.js"></script>
 </body>
