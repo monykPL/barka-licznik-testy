@@ -34,11 +34,6 @@
     <audio id="barka-audio" src="barka.mp3"></audio>
 
     <main id="main-view" class="view-section active">
-        <div id="sound-section" class="top-right-controls">
-            <button id="sound-btn" onclick="checkSound()">KLIKNIJ, ABY SPRAWDZIĆ DŹWIĘK</button>
-            <span class="sound-subtext">(Musisz usłyszeć 3 sekundy Barki)</span>
-        </div>
-
         <div id="center-timer-box" class="center-box">
             <div id="title-section" class="timer-title">Do godziny 21:37 pozostało:</div>
             <div id="timer" class="timer-display">00:00:00</div>
@@ -76,17 +71,25 @@
             </div>
 
             <div id="set-visual" class="settings-content active">
-                <div class="party-setting-row">
-                    <button id="party-btn-visual" onclick="toggleParty()">
-                        IMPREZA (STROBE): WYŁĄCZONA
-                    </button>
+                <h3>Ustawienia Wizualne i Dźwięk</h3>
+                
+                <div class="sound-setting-box">
+                    <button id="sound-btn" onclick="checkSound()">KLIKNIJ, ABY SPRAWDZIĆ DŹWIĘK</button>
+                    <span class="sound-subtext">(Musisz usłyszeć 3 sekundy Barki)</span>
                 </div>
+
+                <div class="party-setting-row">
+                    <label class="toggle-row">
+                        <input type="checkbox" id="toggle-strobe" onchange="togglePartyCheckbox()">
+                        <b>Tryb Imprezowy (Strobe)</b>
+                    </label>
+                    <small class="warning-text">OSTRZEŻENIE: Tryb imprezy może wywołać napad epilepsji.</small>
+                </div>
+
                 <hr>
                 <label><input type="checkbox" id="toggle-chat" checked onchange="updateVisuals()"> Pokaż Czat</label><br>
                 <label><input type="checkbox" id="toggle-clock" checked onchange="updateVisuals()"> Pokaż Zegar</label><br>
-                <label><input type="checkbox" id="toggle-sound" checked onchange="updateVisuals()"> Pokaż Przycisk testu dźwięku</label><br>
                 <label><input type="checkbox" id="toggle-confetti" checked onchange="updateVisuals()"> Konfetti o 21:37</label><br>
-                <label><input type="checkbox" id="toggle-strobe" checked onchange="updateVisuals()"> Zezwalaj na miganie ekranu</label><br>
                 <hr>
                 <label><input type="checkbox" id="toggle-lasers" onchange="updateVisuals()"> NEONOWE Lasery</label><br>
                 <label><input type="checkbox" id="toggle-smoke" onchange="updateVisuals()"> Realistyczny dym</label>
